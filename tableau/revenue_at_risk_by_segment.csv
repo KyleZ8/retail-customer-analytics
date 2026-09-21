@@ -1,3 +1,3 @@
-segment,target_customers,historical_value,projected_12m_value,revenue_at_stake,avg_days_since_last_order
+segment,target_customers,historical_value_gbp,projected_12m_value_gbp,revenue_at_stake_gbp,avg_days_since_last_order
 Can't Lose,232,966514.03,1246713.51,1246713.51,340.17
 At Risk,103,329675.08,752338.94,752338.94,382.0

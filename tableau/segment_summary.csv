@@ -1,4 +1,4 @@
-segment,n_customers,revenue,avg_customer_revenue,avg_days_since_last_order,avg_orders,customer_pct,revenue_pct
+segment,n_customers,revenue_gbp,avg_customer_revenue_gbp,avg_days_since_last_order,avg_orders,customer_pct,revenue_pct
 Champions,1281,11869574.77,9265.87,19.1,17.1,21.9,68.1
 Loyal,699,1863209.26,2665.54,82.7,7.7,11.9,10.7
 Can't Lose,232,966514.03,4166.01,340.2,9.0,4.0,5.5

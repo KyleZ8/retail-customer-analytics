@@ -11,4 +11,6 @@
 
 **Columns (raw):** `Invoice` (invoice number; a `C` prefix marks a cancellation), `StockCode`, `Description`, `Quantity`, `InvoiceDate`, `Price` (GBP), `Customer ID`, `Country`. A UK-based online gift retailer, transactions from 2009-12-01 to 2011-12-09, ~1.07M line items across both sheets. No direct customer-identifying data beyond a numeric ID.
 
+**Currency:** All raw prices, cleaned revenue, CLV projections, dashboard amounts, and aggregate exports are GBP (£).
+
 **Fixture (committed, <1 MB):** `data/fixtures/online_retail_ii_sample.csv` — a deterministic, stratified sample (seed `20260101`) of ~3,000 rows from the real data, built to guarantee coverage of every cleaning-rule edge case (cancelled invoices, missing customer IDs, non-product stock codes) alongside normal rows, so tests exercise real data shapes without needing the full download. See `sql/00_clean.sql` for what each edge case is and why it's excluded.

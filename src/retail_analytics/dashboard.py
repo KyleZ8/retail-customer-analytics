@@ -27,10 +27,24 @@ def write_aggregate_exports(
     tableau_dir.mkdir(exist_ok=True)
     outputs_dir.mkdir(exist_ok=True)
 
-    segment_summary.to_csv(tableau_dir / "segment_summary.csv", index=False)
+    segment_export = segment_summary.rename(
+        columns={
+            "revenue": "revenue_gbp",
+            "avg_customer_revenue": "avg_customer_revenue_gbp",
+        }
+    )
+    risk_export = revenue_at_risk_by_segment.rename(
+        columns={
+            "historical_value": "historical_value_gbp",
+            "projected_12m_value": "projected_12m_value_gbp",
+            "revenue_at_stake": "revenue_at_stake_gbp",
+        }
+    )
+
+    segment_export.to_csv(tableau_dir / "segment_summary.csv", index=False)
     cohort_retention.to_csv(tableau_dir / "cohort_retention.csv", index=False)
     revenue_concentration.to_csv(tableau_dir / "revenue_concentration.csv", index=False)
-    revenue_at_risk_by_segment.to_csv(tableau_dir / "revenue_at_risk_by_segment.csv", index=False)
+    risk_export.to_csv(tableau_dir / "revenue_at_risk_by_segment.csv", index=False)
     pd.DataFrame([kpis]).to_csv(outputs_dir / "kpi_summary.csv", index=False)
 
 
@@ -61,7 +75,7 @@ def build_dashboard_html(
     segment_fig.update_layout(
         title="Revenue by RFM Segment",
         xaxis_title="Segment",
-        yaxis_title="Revenue",
+        yaxis_title="Revenue (GBP)",
         margin=dict(t=60, l=60, r=30, b=90),
     )
 
@@ -117,13 +131,13 @@ def build_dashboard_html(
     risk_fig.update_layout(
         title="Projected Revenue at Stake",
         xaxis_title="Segment",
-        yaxis_title="12-month revenue at stake",
+        yaxis_title="12-month revenue at stake (GBP)",
         margin=dict(t=60, l=70, r=30, b=80),
     )
 
     segment_table = segment_summary.copy()
     for col in ["revenue", "avg_customer_revenue"]:
-        segment_table[col] = segment_table[col].map(lambda v: f"${v:,.0f}")
+        segment_table[col] = segment_table[col].map(lambda v: f"£{v:,.0f}")
     segment_table["customer_pct"] = segment_table["customer_pct"].map(lambda v: f"{v:.1f}%")
     segment_table["revenue_pct"] = segment_table["revenue_pct"].map(lambda v: f"{v:.1f}%")
 
@@ -143,9 +157,9 @@ def build_dashboard_html(
 
     tiles = [
         ("Customers", f"{int(kpis['n_customers']):,}"),
-        ("Clean Revenue", f"${kpis['total_revenue']:,.0f}"),
+        ("Clean Revenue", f"£{kpis['total_revenue']:,.0f}"),
         ("Top 10% Revenue Share", f"{kpis['top_10_revenue_share']:.1f}%"),
-        ("Revenue at Stake", f"${kpis['revenue_at_stake']:,.0f}"),
+        ("Revenue at Stake", f"£{kpis['revenue_at_stake']:,.0f}"),
     ]
     tile_html = "".join(
         f"<section class='tile'><div>{label}</div><strong>{value}</strong></section>"

@@ -29,3 +29,6 @@ data/processed/
 
 # Pipeline run artifacts.
 outputs/
+!outputs/
+!outputs/kpi_summary.csv
+!outputs/revenue_at_risk_targeting_list.csv

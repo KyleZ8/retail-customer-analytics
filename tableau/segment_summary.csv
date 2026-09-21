@@ -1,0 +1,9 @@
+segment,n_customers,revenue,avg_customer_revenue,avg_days_since_last_order,avg_orders,customer_pct,revenue_pct
+Champions,1281,11869574.77,9265.87,19.1,17.1,21.9,68.1
+Loyal,699,1863209.26,2665.54,82.7,7.7,11.9,10.7
+Can't Lose,232,966514.03,4166.01,340.2,9.0,4.0,5.5
+At Risk,599,676251.48,1128.97,377.3,3.4,10.2,3.9
+Hibernating,1511,633618.41,419.34,455.9,1.2,25.8,3.6
+Need Attention,653,548030.99,839.25,107.5,2.1,11.2,3.1
+Potential Loyalist,431,463069.74,1074.41,24.2,3.1,7.4,2.7
+Promising,446,414196.05,928.69,27.2,1.5,7.6,2.4

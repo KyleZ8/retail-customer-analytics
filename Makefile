@@ -93,7 +93,8 @@ notebooks: data
 	$(PYTHON) -m ipykernel install --user --name=$(KERNEL_NAME) --display-name="$(KERNEL_NAME)" >/dev/null
 	$(PYTHON) -m jupyter nbconvert --to notebook --execute --inplace \
 		--ExecutePreprocessor.kernel_name=$(KERNEL_NAME) \
-		notebooks/01_data_quality.ipynb notebooks/02_customer_base.ipynb
+		notebooks/01_data_quality.ipynb notebooks/02_customer_base.ipynb \
+		notebooks/03_segmentation.ipynb notebooks/04_clv.ipynb
 
 test:
 	$(PYTHON) -m pytest tests/ -v

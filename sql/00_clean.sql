@@ -29,7 +29,7 @@
 CREATE OR REPLACE VIEW non_product_codes AS
 SELECT unnest([
     'POST', 'DOT', 'M', 'm', 'C2', 'C3', 'D', 'S', 'BANK CHARGES', 'ADJUST',
-    'ADJUST2', 'AMAZONFEE', 'PADS', 'TEST001', 'TEST002', 'B', 'GIFT', 'CRUK'
+    'ADJUST2', 'PADS', 'TEST001', 'TEST002', 'B', 'GIFT', 'CRUK'
 ]) AS stock_code;
 
 CREATE OR REPLACE VIEW transactions_flagged AS
@@ -39,6 +39,7 @@ SELECT
     (
         StockCode IN (SELECT stock_code FROM non_product_codes)
         OR StockCode LIKE 'gift\_%' ESCAPE '\'
+        OR StockCode LIKE '%FEE'
     ) AS is_non_product,
     "Customer ID" IS NULL AS is_missing_customer,
     (Quantity <= 0 OR Price <= 0) AS is_non_positive

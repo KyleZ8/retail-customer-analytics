@@ -12,10 +12,10 @@ SELECT
     days_since_last_order,
     n_orders AS frequency,
     total_revenue AS monetary,
-    NTILE(5) OVER (ORDER BY days_since_last_order DESC) AS r_score,
-    NTILE(5) OVER (ORDER BY n_orders ASC) AS f_score,
-    NTILE(5) OVER (ORDER BY total_revenue ASC) AS m_score,
-    NTILE(5) OVER (ORDER BY days_since_last_order DESC)
-        + NTILE(5) OVER (ORDER BY n_orders ASC)
-        + NTILE(5) OVER (ORDER BY total_revenue ASC) AS rfm_total
+    NTILE(5) OVER (ORDER BY days_since_last_order DESC, customer_id ASC) AS r_score,
+    NTILE(5) OVER (ORDER BY n_orders ASC, customer_id ASC) AS f_score,
+    NTILE(5) OVER (ORDER BY total_revenue ASC, customer_id ASC) AS m_score,
+    NTILE(5) OVER (ORDER BY days_since_last_order DESC, customer_id ASC)
+        + NTILE(5) OVER (ORDER BY n_orders ASC, customer_id ASC)
+        + NTILE(5) OVER (ORDER BY total_revenue ASC, customer_id ASC) AS rfm_total
 FROM customer_base;

@@ -20,6 +20,7 @@ SQL_FILES = (
     "02_rfm_scores.sql",
     "03_cohort_retention.sql",
     "04_revenue_concentration.sql",
+    "05_rfm_segments.sql",
 )
 
 
@@ -32,9 +33,15 @@ def build_connection(source_path: Path | None = None) -> duckdb.DuckDBPyConnecti
 
     con = duckdb.connect()
     if source_path.suffix == ".parquet":
-        con.sql(f"CREATE VIEW transactions_raw AS SELECT * FROM read_parquet('{source_path.as_posix()}')")
+        con.sql(
+            "CREATE VIEW transactions_raw AS "
+            f"SELECT * FROM read_parquet('{source_path.as_posix()}')"
+        )
     else:
-        con.sql(f"CREATE VIEW transactions_raw AS SELECT * FROM read_csv_auto('{source_path.as_posix()}')")
+        con.sql(
+            "CREATE VIEW transactions_raw AS "
+            f"SELECT * FROM read_csv_auto('{source_path.as_posix()}')"
+        )
 
     for filename in SQL_FILES:
         con.sql((SQL_DIR / filename).read_text())

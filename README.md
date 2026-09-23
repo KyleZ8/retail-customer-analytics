@@ -1,6 +1,13 @@
-[![CI](https://github.com/KyleZ8/retail-customer-analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/KyleZ8/retail-customer-analytics/actions/workflows/ci.yml)
-
 # Retail Customer Analytics
+
+**SQL-first customer analytics for RFM segmentation, cohort retention, and revenue-at-risk targeting.**
+Clean transactions → build RFM segments → project CLV → publish a CRM dashboard.
+
+![CI](https://github.com/KyleZ8/retail-customer-analytics/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.13-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+---
 
 ## Headline Result
 
@@ -49,6 +56,8 @@ CLV is intentionally transparent: historical customer value plus a cohort-based 
 | At Risk | 103 | £329,675 | £752,339 |
 | **Total** | **335** | **£1,296,189** | **£1,999,052** |
 
+Only **103** of the **599** At Risk customers are targeted because the activation list applies a value threshold: At Risk customers must be in the top two monetary quintiles (`m_score >= 4`). The remaining At Risk customers are still monitored, but they are better suited to lower-cost nurture rather than the priority save campaign.
+
 The ranked CRM activation list is written to `outputs/revenue_at_risk_targeting_list.csv`. Tableau-ready aggregate CSVs are in `tableau/`.
 
 ## Figures
@@ -95,3 +104,5 @@ The raw source is a UK online retail transaction file from December 2009 through
 - The 12-month projection is cohort-based and intentionally simple; it should be recalibrated after campaign results arrive.
 - RFM does not infer causality. Campaign lift must be measured with a randomized holdout.
 - Missing customer IDs are excluded because the analysis is customer-level; that removes guest/unregistered transactions from customer analytics.
+
+Part of a six-project data analytics portfolio — see [github.com/KyleZ8](https://github.com/KyleZ8)
